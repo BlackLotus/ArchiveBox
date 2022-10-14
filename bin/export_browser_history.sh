@@ -43,7 +43,7 @@ if [[ "$1" == "--firefox" ]]; then
         cp "$default" "$OUTPUT_DIR/firefox_history.db.tmp"
     fi
     
-    sqlite3 "$OUTPUT_DIR/firefox_history.db.tmp" "SELECT \"[\" || group_concat(json_object('timestamp', last_visit_date, 'description', title, 'href', url)) || \"]\" FROM moz_places;" > "$OUTPUT_DIR/firefox_history.json"
+    sqlite3 "$OUTPUT_DIR/firefox_history.db.tmp" "SELECT \"[\" || group_concat(json_object('timestamp', 'last_visit_date', 'description', title, 'href', url)) || \"]\" FROM moz_places;" > "$OUTPUT_DIR/firefox_history.json"
     sqlite3 "$OUTPUT_DIR/firefox_history.db.tmp" "SELECT \"[\" || group_concat(json_object('timestamp', b.dateAdded, 'description', b.title, 'href', f.url)) || \"]\" FROM moz_bookmarks AS b JOIN moz_places AS f ON f.id = b.fk" > "$OUTPUT_DIR/firefox_bookmarks.json"
     
     rm "$OUTPUT_DIR"/firefox_history.db.*
